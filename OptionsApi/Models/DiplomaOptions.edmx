@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DiplomaOptionsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Choice">
+          <Key>
+            <PropertyRef Name="ChoiceId" />
+          </Key>
+          <Property Name="ChoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YearTermId" Type="int" Nullable="false" />
+          <Property Name="StudentId" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="StudentFirstName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="StudentLastName" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="FirstChoiceOptionId" Type="int" Nullable="false" />
+          <Property Name="SecondChoiceOptionId" Type="int" Nullable="false" />
+          <Property Name="ThirdChoiceOptionId" Type="int" Nullable="false" />
+          <Property Name="FourthChoiceOptionId" Type="int" Nullable="false" />
+          <Property Name="SelectionDate" Type="datetime" Nullable="false" />
+          <Property Name="Option_OptionId" Type="int" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="YearTerm">
+          <Key>
+            <PropertyRef Name="YearTermId" />
+          </Key>
+          <Property Name="YearTermId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Term" Type="int" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Choice_dbo_Option_FirstChoiceOptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="Choice" Type="Self.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="FirstChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_FourthChoiceOptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="Choice" Type="Self.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="FourthChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_Option_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="0..1" />
+          <End Role="Choice" Type="Self.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="Option_OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_SecondChoiceOptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="Choice" Type="Self.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="SecondChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="Choice" Type="Self.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="ThirdChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_YearTerm_YearTermId">
+          <End Role="YearTerm" Type="Self.YearTerm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Choice" Type="Self.Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="YearTerm">
+              <PropertyRef Name="YearTermId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="YearTermId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiplomaOptionsModelStoreContainer">
+          <EntitySet Name="Choice" EntityType="Self.Choice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="YearTerm" EntityType="Self.YearTerm" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_FirstChoiceOptionId" Association="Self.FK_dbo_Choice_dbo_Option_FirstChoiceOptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_FourthChoiceOptionId" Association="Self.FK_dbo_Choice_dbo_Option_FourthChoiceOptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_Option_OptionId" Association="Self.FK_dbo_Choice_dbo_Option_Option_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_SecondChoiceOptionId" Association="Self.FK_dbo_Choice_dbo_Option_SecondChoiceOptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId" Association="Self.FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_YearTerm_YearTermId" Association="Self.FK_dbo_Choice_dbo_YearTerm_YearTermId">
+            <End Role="YearTerm" EntitySet="YearTerm" />
+            <End Role="Choice" EntitySet="Choice" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiplomaOptionsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DiplomaOptions" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Choices" EntityType="DiplomaOptionsModel.Choice" />
+          <EntitySet Name="Options" EntityType="DiplomaOptionsModel.Option" />
+          <EntitySet Name="YearTerms" EntityType="DiplomaOptionsModel.YearTerm" />
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_FirstChoiceOptionId" Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_FirstChoiceOptionId">
+            <End Role="Option" EntitySet="Options" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_FourthChoiceOptionId" Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_FourthChoiceOptionId">
+            <End Role="Option" EntitySet="Options" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_Option_OptionId" Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_Option_OptionId">
+            <End Role="Option" EntitySet="Options" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_SecondChoiceOptionId" Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_SecondChoiceOptionId">
+            <End Role="Option" EntitySet="Options" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId" Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId">
+            <End Role="Option" EntitySet="Options" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Choice_dbo_YearTerm_YearTermId" Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_YearTerm_YearTermId">
+            <End Role="YearTerm" EntitySet="YearTerms" />
+            <End Role="Choice" EntitySet="Choices" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Choice">
+          <Key>
+            <PropertyRef Name="ChoiceId" />
+          </Key>
+          <Property Name="ChoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YearTermId" Type="Int32" Nullable="false" />
+          <Property Name="StudentId" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="StudentFirstName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="StudentLastName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="FirstChoiceOptionId" Type="Int32" Nullable="false" />
+          <Property Name="SecondChoiceOptionId" Type="Int32" Nullable="false" />
+          <Property Name="ThirdChoiceOptionId" Type="Int32" Nullable="false" />
+          <Property Name="FourthChoiceOptionId" Type="Int32" Nullable="false" />
+          <Property Name="SelectionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Option_OptionId" Type="Int32" />
+          <NavigationProperty Name="Option" Relationship="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_FirstChoiceOptionId" FromRole="Choice" ToRole="Option" />
+          <NavigationProperty Name="Option1" Relationship="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_FourthChoiceOptionId" FromRole="Choice" ToRole="Option" />
+          <NavigationProperty Name="Option2" Relationship="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_Option_OptionId" FromRole="Choice" ToRole="Option" />
+          <NavigationProperty Name="Option3" Relationship="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_SecondChoiceOptionId" FromRole="Choice" ToRole="Option" />
+          <NavigationProperty Name="Option4" Relationship="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId" FromRole="Choice" ToRole="Option" />
+          <NavigationProperty Name="YearTerm" Relationship="DiplomaOptionsModel.FK_dbo_Choice_dbo_YearTerm_YearTermId" FromRole="Choice" ToRole="YearTerm" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="YearTerm">
+          <Key>
+            <PropertyRef Name="YearTermId" />
+          </Key>
+          <Property Name="YearTermId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Term" Type="Int32" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_Choice_dbo_Option_FirstChoiceOptionId">
+          <End Type="DiplomaOptionsModel.Option" Role="Option" Multiplicity="1" />
+          <End Type="DiplomaOptionsModel.Choice" Role="Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="FirstChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_FourthChoiceOptionId">
+          <End Type="DiplomaOptionsModel.Option" Role="Option" Multiplicity="1" />
+          <End Type="DiplomaOptionsModel.Choice" Role="Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="FourthChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_Option_OptionId">
+          <End Type="DiplomaOptionsModel.Option" Role="Option" Multiplicity="0..1" />
+          <End Type="DiplomaOptionsModel.Choice" Role="Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="Option_OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_SecondChoiceOptionId">
+          <End Type="DiplomaOptionsModel.Option" Role="Option" Multiplicity="1" />
+          <End Type="DiplomaOptionsModel.Choice" Role="Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="SecondChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId">
+          <End Type="DiplomaOptionsModel.Option" Role="Option" Multiplicity="1" />
+          <End Type="DiplomaOptionsModel.Choice" Role="Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="ThirdChoiceOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Choice_dbo_YearTerm_YearTermId">
+          <End Type="DiplomaOptionsModel.YearTerm" Role="YearTerm" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DiplomaOptionsModel.Choice" Role="Choice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="YearTerm">
+              <PropertyRef Name="YearTermId" />
+            </Principal>
+            <Dependent Role="Choice">
+              <PropertyRef Name="YearTermId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DiplomaOptionsModelStoreContainer" CdmEntityContainer="DiplomaOptions">
+          <EntitySetMapping Name="Choices">
+            <EntityTypeMapping TypeName="DiplomaOptionsModel.Choice">
+              <MappingFragment StoreEntitySet="Choice">
+                <ScalarProperty Name="Option_OptionId" ColumnName="Option_OptionId" />
+                <ScalarProperty Name="SelectionDate" ColumnName="SelectionDate" />
+                <ScalarProperty Name="FourthChoiceOptionId" ColumnName="FourthChoiceOptionId" />
+                <ScalarProperty Name="ThirdChoiceOptionId" ColumnName="ThirdChoiceOptionId" />
+                <ScalarProperty Name="SecondChoiceOptionId" ColumnName="SecondChoiceOptionId" />
+                <ScalarProperty Name="FirstChoiceOptionId" ColumnName="FirstChoiceOptionId" />
+                <ScalarProperty Name="StudentLastName" ColumnName="StudentLastName" />
+                <ScalarProperty Name="StudentFirstName" ColumnName="StudentFirstName" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="YearTermId" ColumnName="YearTermId" />
+                <ScalarProperty Name="ChoiceId" ColumnName="ChoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Options">
+            <EntityTypeMapping TypeName="DiplomaOptionsModel.Option">
+              <MappingFragment StoreEntitySet="Option">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YearTerms">
+            <EntityTypeMapping TypeName="DiplomaOptionsModel.YearTerm">
+              <MappingFragment StoreEntitySet="YearTerm">
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="YearTermId" ColumnName="YearTermId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

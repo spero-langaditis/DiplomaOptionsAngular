@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4821640141ec43fea0a75a3d68df65fb" Name="Diagram1">
+        <EntityTypeShape EntityType="DiplomaOptionsModel.Choice" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="DiplomaOptionsModel.Option" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="DiplomaOptionsModel.YearTerm" Width="1.5" PointX="0.75" PointY="7.25" />
+        <AssociationConnector Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_FirstChoiceOptionId" />
+        <AssociationConnector Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_FourthChoiceOptionId" />
+        <AssociationConnector Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_Option_OptionId" />
+        <AssociationConnector Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_SecondChoiceOptionId" />
+        <AssociationConnector Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_Option_ThirdChoiceOptionId" />
+        <AssociationConnector Association="DiplomaOptionsModel.FK_dbo_Choice_dbo_YearTerm_YearTermId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

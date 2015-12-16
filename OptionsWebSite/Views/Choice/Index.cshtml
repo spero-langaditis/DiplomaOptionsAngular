@@ -1,0 +1,42 @@
+﻿<div ng-init="search();getOptions();getYearTerms();">
+    <br />
+    <br />
+    <br />
+    <label>Choose a year term: </label>
+    <select class="form-control" name="yearTermSelect" id="yearTermSelect" ng-change="optionChart();"
+            ng-model="data.yearTermSelect" ng-options='yearTerm.YearTermId as (yearTerm.Year + " - " + yearTerm.Term) for yearTerm in yearTerms'>
+    </select>
+    <br />
+    <br />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Student Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Option 1</th>
+                <th>Option 2</th>
+                <th>Option 3</th>
+                <th>Option 4</th>
+                <th>Year Term</th>
+                <th>Selection Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="choice in choices" ng-if="choice.YearTermId == data.yearTermSelect">
+                <td>{{choice.StudentId}}</td>
+                <td>{{choice.StudentFirstName}}</td>
+                <td>{{choice.StudentLastName}}</td>
+                <td>{{optionNames[choice.FirstChoiceOptionId]}}</td>
+                <td>{{optionNames[choice.SecondChoiceOptionId]}}</td>
+                <td>{{optionNames[choice.ThirdChoiceOptionId]}}</td>
+                <td>{{optionNames[choice.FourthChoiceOptionId]}}</td>
+                <td>{{yearTermNames[choice.YearTermId]}}</td>
+                <td>{{choice.SelectionDate}}</td>
+                <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+</div>

@@ -1,0 +1,22 @@
+﻿==================== enable-migrations ==========================
+
+enable-migrations -ContextProjectName DiplomaDataModel -ContextTypeName DiplomaDataModel.Models.DiplomaDataModelContext -ProjectName OptionsWebSite -MigrationsDirectory Migrations\DiplomaDataModel
+
+enable-migrations -ContextProjectName DiplomaDataModel -ContextTypeName DiplomaDataModel.Models.ApplicationDbContext -ProjectName OptionsWebSite -MigrationsDirectory Migrations\Identity
+
+==================== add-migration ==============================
+
+add-migration -ConfigurationTypeName OptionsWebSite.Migrations.DiplomaDataModel.Configuration "InitialCreate"
+
+add-migration -ConfigurationTypeName OptionsWebSite.Migrations.Identity.Configuration "InitialCreate"
+
+==================== update-database ==============================
+
+update-database -ConfigurationTypeName OptionsWebSite.Migrations.DiplomaDataModel.Configuration
+
+update-database -ConfigurationTypeName OptionsWebSite.Migrations.Identity.Configuration
+
+==================== Other ==============================
+sqllocaldb.exe stop
+
+sqllocaldb.exe delete
